@@ -258,3 +258,7 @@
 #qris img{
 	width: 100%;
 }
+
+#btn-submit:disabled{
+	background: gray;
+}
