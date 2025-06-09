@@ -35,6 +35,7 @@
 	<link href="<?= base_url() ?>assets/css/jquery-ui.css" rel="stylesheet">
 	<link href="<?= base_url() ?>assets/sass/style.css" rel="stylesheet">
 	<link href="<?= base_url() ?>assets/sass/newstyle.css" rel="stylesheet">
+	<link href="<?= base_url() ?>assets/sass/radio.scss" rel="stylesheet">
 </head>
 
 <body class="disable-scroll">
@@ -286,9 +287,9 @@
 								</div>
 								<ul>
 									<li><b>Minggu, 29 Juni 2025</b> <br>
-										Bebas(santai)
+										11:00 - Selesai
 									</li>
-									<li>Jl Mawar, Desa Ngantru, Kec Ngantang, Kab Malang</li>
+									<li>Jl. Mawar, Desa Ngantru, Kec. Ngantang, Kab. Malang</li>
 									<li><a target="_blank"
 										   href="https://maps.app.goo.gl/9yfdSrEyRWvZe81n9">
 											Lihat Lokasi</a></li>
@@ -369,7 +370,7 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col col-12">
-				<div class="wpo-contact-section-wrapper">
+				<div class="wpo-contact-section-wrapper wadah-ucapan">
 					<div class="wpo-section-title">
 						<h2>Ucapan & Doa</h2>
 						<p>Berikan doa dan ucapan terbaik untuk kami.</p>
@@ -385,11 +386,20 @@
 								<textarea class="form-control" name="pesan" id="pesan" required
 										  placeholder="Pesan" style="height: 6rem"></textarea>
 							</div>
+							<div>
+								<label>Konfirmasi Kehadiran</label>
+								<div class="group">
+									<input type="radio" class="hadir" name="hadir" id="rb1" value="1" required/>
+									<label for="rb1">Hadir</label>
+									<input type="radio" class="hadir" name="hadir" id="rb2" value="0" required/>
+									<label for="rb2">Belum Bisa</label>
+								</div>
+							</div>
 							<div class="submit-area">
-								<div class="g-recaptcha"
-									 data-callback="recaptchaCallback"
-									 data-sitekey="6LeAHVUrAAAAAOz1rnPuntY0KuE2I08YVLNkdnWJ"></div>
-								<button type="submit" id="btn-submit" class="theme-btn mt-3" disabled>Kirim</button>
+<!--								<div class="g-recaptcha"-->
+<!--									 data-callback="recaptchaCallback"-->
+<!--									 data-sitekey="6LeAHVUrAAAAAOz1rnPuntY0KuE2I08YVLNkdnWJ"></div>-->
+								<button type="submit" id="btn-submit" class="theme-btn mt-3">Kirim</button>
 								<div id="c-loader">
 									<i class="ti-reload"></i>
 								</div>
@@ -532,6 +542,16 @@
 		document.getElementById("btn-submit").removeAttribute('disabled');
 	}
 
+	function cekhadir(nilai){
+		if (nilai === '0'){
+			return 'Tidak Hadir'
+		}else if (nilai === '1'){
+			return 'Hadir'
+		}else{
+			return ''
+		}
+	}
+
 	showAllProjects()
 	function showAllProjects() {
 		moment.locale('ID')
@@ -544,13 +564,13 @@
 				let projects = response;
 				for (var i = 0; i < projects.length; i++)
 				{
-					let hasil = '<div class="card mb-2">' +
+					let hasil = '<div class="card mb-2 card-ucapan">' +
 									'<div class="card-body">'+
 								'<div class="d-flex flex-column">'+
 								'<div class="d-flex justify-content-between mb-2 align-items-center">'+
 								'<div style="display: ruby">' +
 								'<img style="max-width: 30px; border-radius: 50%" class="mr-1" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541">'+
-									'<strong> '+ projects[i].nama +'</strong>' +
+									'<strong> '+ projects[i].nama +' </strong>' +
 								'</div>'+
 								'<small>'+ moment(projects[i].created_date).fromNow() +'</small>' +
 							'</div>' +
@@ -574,6 +594,7 @@
 		let data = {
 			nama: $("#name").val(),
 			pesan: $("#pesan").val(),
+			hadir: $('input[name="hadir"]:checked').val()
 		};
 		console.log(data)
 		$.ajax({

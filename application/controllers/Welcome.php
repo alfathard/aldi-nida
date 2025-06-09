@@ -18,6 +18,12 @@ class Welcome extends CI_Controller {
 		$this->load->view('index-2', $data);
 	}
 
+	public function konfirmasi(){
+		$data['data'] = $this->ucapan->get_all();
+
+		$this->load->view('konfirmasi', $data);
+	}
+
 	public function showall(){
 		$ucapan = $this->ucapan->get_all();
 		header('Content-Type: application/json');
@@ -33,7 +39,8 @@ class Welcome extends CI_Controller {
 	public function ucapan(){
 		$storeData = array(
 			'nama'	=>	ucwords($this->input->post('nama')),
-			'pesan'		=>	$this->input->post('pesan')
+			'pesan'		=>	$this->input->post('pesan'),
+			'hadir' => $this->input->post('hadir')
 		);
 
 		$this->ucapan->insert($storeData);

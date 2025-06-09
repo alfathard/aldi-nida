@@ -262,3 +262,7 @@
 #btn-submit:disabled{
 	background: gray;
 }
+
+.wadah-ucapan{
+	background : url('../images/footer-shape-2.svg') no-repeat right;
+}
