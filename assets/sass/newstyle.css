@@ -266,3 +266,32 @@
 .wadah-ucapan{
 	background : url('../images/footer-shape-2.svg') no-repeat right;
 }
+
+/*				Mute Audio				*/
+	.mute-btn {
+		position: fixed;
+		bottom: 60px;
+		right: 20px;
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		background: #0d3722;
+		border: 2px solid #fff;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+	}
+
+	.mute-btn:hover {
+		transform: scale(1.1);
+		background: #165033;
+	}
+
+	.mute-btn i {
+		font-size: 22px;
+		color: whitesmoke;
+	}
