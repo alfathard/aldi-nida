@@ -19,7 +19,7 @@
 	<title> Aldi & Nida Wedding Day</title>
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<link href="<?= base_url() ?>assets/css/themify-icons.css" rel="stylesheet">
-	<link href="<?= base_url() ?>assets/css/flaticon.css" rel="stylesheet">
+<!--	<link href="--><?//= base_url() ?><!--assets/css/flaticon.css" rel="stylesheet">-->
 	<link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?= base_url() ?>assets/css/animate.css" rel="stylesheet">
 	<link href="<?= base_url() ?>assets/css/owl.carousel.css" rel="stylesheet">
@@ -243,6 +243,84 @@
 		</div> <!-- end container -->
 	</section>
 	<!-- end couple-section -->
+
+	<section class="wpo-portfolio-section section-padding" id="gallery">
+		<h2 class="hidden">some</h2>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="portfolio-grids gallery-container clearfix portfolio-slide owl-carousel">
+						<div class="grid">
+							<div class="img-holder">
+								<a href="<?= base_url() ?>assets/image/manten/1.jpg" class="fancybox"
+								   data-fancybox-group="gall-1">
+									<img src="<?= base_url() ?>assets/image/manten/1.jpg" alt class="img img-responsive">
+									<div class="hover-content">
+										<i class="fas fa-arrow-up"></i>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="grid">
+							<div class="img-holder">
+								<a href="<?= base_url() ?>assets/image/manten/2.jpg" class="fancybox"
+								   data-fancybox-group="gall-1">
+									<img src="<?= base_url() ?>assets/image/manten/2.jpg" alt class="img img-responsive">
+									<div class="hover-content">
+										<i class="fas fa-arrow-up"></i>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="grid">
+							<div class="img-holder">
+								<a href="<?= base_url() ?>assets/image/manten/3.jpg" class="fancybox"
+								   data-fancybox-group="gall-1">
+									<img src="<?= base_url() ?>assets/image/manten/3.jpg" alt class="img img-responsive">
+									<div class="hover-content">
+										<i class="fas fa-arrow-up"></i>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="grid">
+							<div class="img-holder">
+								<a href="<?= base_url() ?>assets/image/manten/4.jpg" class="fancybox"
+								   data-fancybox-group="gall-1">
+									<img src="<?= base_url() ?>assets/image/manten/4.jpg" alt class="img img-responsive">
+									<div class="hover-content">
+										<i class="fas fa-arrow-up"></i>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="grid">
+							<div class="img-holder">
+								<a href="<?= base_url() ?>assets/image/manten/5.jpg" class="fancybox"
+								   data-fancybox-group="gall-1">
+									<img src="<?= base_url() ?>assets/image/manten/5.jpg" alt class="img img-responsive">
+									<div class="hover-content">
+										<i class="fas fa-arrow-up"></i>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="grid">
+							<div class="img-holder">
+								<a href="<?= base_url() ?>assets/image/manten/6.jpg" class="fancybox"
+								   data-fancybox-group="gall-1">
+									<img src="<?= base_url() ?>assets/image/manten/6.jpg" alt class="img img-responsive">
+									<div class="hover-content">
+										<i class="fas fa-arrow-up"></i>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- end container -->
+	</section>
 
 	<!-- start wpo-event-section -->
 	<section class="wpo-event-section section-padding" id="event" style="background: #f7f7f7">
@@ -473,6 +551,9 @@
 
 
 <button id="backtotop" title="Kembali ke atas">↑</button>
+<button id="mute-toggle" class="mute-btn">
+	<i class="fas fa-volume-up" id="logo-volume"></i>
+</button>
 <audio loop autoplay hidden id="audio-inti">
 	<source src="<?= base_url() ?>assets/audio-ibar.mp3" type="audio/mpeg">
 </audio>
@@ -509,6 +590,56 @@
 <script src="<?= base_url() ?>assets/js/jquery.min.js"></script>
 <script src="<?= base_url() ?>assets/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url() ?>assets/js/moment-with-locales.js"></script>
+<script>
+	$(document).ready(function (){
+		$('.owl-nav').styles('display', 'none!important')
+	})
+</script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const audio = document.getElementById('audio-inti');
+		const muteBtn = document.getElementById('mute-toggle');
+		const icon = muteBtn.querySelector('#logo-volume');
+
+		// Cek status mute dari localStorage
+		const isMuted = localStorage.getItem('audioMuted') === 'true';
+
+		// Set initial state
+		if (isMuted) {
+			audio.muted = true;
+			icon.classList.replace('fa-volume-up', 'fa-volume-mute');
+		} else {
+			audio.muted = false;
+			// Coba play audio (browser mungkin memblokir autoplay)
+			audio.play().catch(e => console.log('Autoplay prevented:', e));
+		}
+
+		// Toggle function
+		muteBtn.addEventListener('click', function() {
+			audio.muted = !audio.muted;
+
+			if (audio.muted) {
+				icon.classList.replace('fa-volume-up', 'fa-volume-mute');
+				localStorage.setItem('audioMuted', 'true');
+			} else {
+				icon.classList.replace('fa-volume-mute', 'fa-volume-up');
+				localStorage.setItem('audioMuted', 'false');
+				// Coba play jika belum playing
+				if (audio.paused) {
+					audio.play().catch(e => console.log('Play failed:', e));
+				}
+			}
+		});
+
+		// Untuk mengatasi autoplay policy, aktifkan audio saat interaksi pertama
+		document.addEventListener('click', function initAudio() {
+			if (!audio.muted && audio.paused) {
+				audio.play().catch(e => console.log('Play failed:', e));
+			}
+			document.removeEventListener('click', initAudio);
+		}, { once: true });
+	});
+</script>
 <script>
 	var countDownDate = new Date("Jun 29, 2025 15:00:00").getTime();
 
@@ -628,6 +759,7 @@
 		const audio = document.querySelector("audio");
 		audio.volume = 0.5;
 		audio.play();
+		$('.owl-nav').attr('style', 'display:none!important')
 	}
 
 	document.addEventListener('visibilitychange', function () {
