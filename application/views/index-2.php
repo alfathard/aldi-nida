@@ -117,7 +117,7 @@
 									 data-wow-duration="1600ms">
 									<p>Kepada Yth</p>
 									<p>Bapak/Ibu/Saudara/i</p>
-									<strong class="namatamu"><?= $tamu ?></strong>
+									<strong class="namatamu"><?= ucwords($tamu) ?></strong>
 								</div>
 								<div data-swiper-parallax="400" class="slide-text wow fadeInUp mt-5"
 									 data-wow-duration="1600ms">
